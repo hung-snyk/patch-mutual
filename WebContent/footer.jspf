@@ -24,17 +24,22 @@ IBM AltoroJ
 </tr>
 </table>
 <div id="footer" style="width: 99%;">
-    <a id="HyperLink5" href="<%=request.getContextPath()%>/index.jsp?content=privacy.htm">Privacy Policy</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a id="HyperLink6" href="<%=request.getContextPath()%>/index.jsp?content=security.htm">Security Statement</a>
+    <a id="HyperLink5" href="<%=request.getContextPath()%>/index.jsp?content=security.htm">Terms of Use</a>
     &nbsp;&nbsp;|&nbsp;&nbsp;
     <a id="HyperLink6" href="<%=request.getContextPath()%>/status_check.jsp">Server Status Check</a>
     &nbsp;&nbsp;|&nbsp;&nbsp; 
-    <a id="HyperLink6" href="<%=request.getContextPath()%>/swagger/index.html">REST API</a>
+    <a id="HyperLink7" href="<%=request.getContextPath()%>/swagger/index.html">REST API</a>
     &nbsp;&nbsp;|&nbsp;&nbsp; 
     &copy;&nbsp;<% out.print(Calendar.getInstance().get(Calendar.YEAR)); %> Patch Mutual, Inc.
-    <!--<span style="color:red;font-weight:bold;font-style:italic;float:right">This web application is open source!<span style="color:black;font-style:italic;font-weight:normal;float:right">&nbsp;<a href="https://github.com/AppSecDev/AltoroJ/">Get your copy from GitHub</a> and take advantage of advanced features</span></span>-->
 	<br><br><br>
+    <div class="disclaimer">
+        This website is published by Snyk Limited for the sole purpose of demonstrating the effectiveness of
+         its products in detecting web application vulnerabilities and website defects. This site is not a real banking site
+         and is designed with vulnerabilities. Similarities, if any, to third party products and/or websites are purely coincidental.
+         This site is provided "as is" without warranty of any kind, either express or implied, and you agree that in no event will
+         Snyk or its affiliates have any liability out of or in connection with the website. By access or using this website, you
+         agree you have read and agree to be bound by this disclaimer and the website <a id="HyperLink5" href="<%=request.getContextPath()%>/index.jsp?content=security.htm">Terms of Use</a>.
+    </div>
 </div>
 
 </body>
