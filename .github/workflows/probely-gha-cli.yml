@@ -3,6 +3,8 @@ name: Snyk API & Web CICD Scan
 on:
   workflow_dispatch:
 
+export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
