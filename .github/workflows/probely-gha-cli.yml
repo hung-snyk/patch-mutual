@@ -8,12 +8,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Install Probely CLI edit
+      # Step 1: Install Probely CLI and authenticate
       - name: Install Probely CLI
         run: |
           # Install Probely CLI
           pip install probely
-          # Test probely GET TARGETS
-          # probely targets get --api-key ${{ secrets.PROBELY_API_KEY }}
+          # Authenticate with API key
           export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }}
+          # Get a list of targets
           probely targets get
+
+      # Step 2: Start scan with scan ID
+      - name: Start Scan
+        run: |
+          TARGET_ID=$(probely targets get -o JSON | jq -r '.[0].ID')
+          probely targets start-scan ${TARGET_ID}
