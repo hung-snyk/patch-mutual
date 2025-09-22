@@ -5,6 +5,8 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PROBELY_API_KEY: ${{ secrets.PROBELY_API_KEY }}
 
     steps:
       # Step 1: Install Probely CLI and authenticate
