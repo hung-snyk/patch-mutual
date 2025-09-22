@@ -1,0 +1,19 @@
+name: Snyk API & Web CICD Scan
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Install Probely CLI edit
+      - name: Install Probely CLI
+        run: |
+          # Install Probely CLI
+          pip install probely
+          # Test probely GET TARGETS
+          # probely targets get --api-key ${{ secrets.PROBELY_API_KEY }}
+          export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }}
+          probely GET TARGETS
