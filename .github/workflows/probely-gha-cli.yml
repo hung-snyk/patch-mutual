@@ -16,4 +16,4 @@ jobs:
           # Test probely GET TARGETS
           # probely targets get --api-key ${{ secrets.PROBELY_API_KEY }}
           export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }}
-          probely GET TARGETS
+          probely targets get
