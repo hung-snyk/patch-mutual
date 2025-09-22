@@ -15,7 +15,7 @@ jobs:
           # Install Probely CLI
           pip install probely
           # Authenticate with API key
-          export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }} >> $GITHUB_ENV
+          # export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }} >> $GITHUB_ENV
           # Get a list of targets
           probely targets get
 
@@ -23,5 +23,5 @@ jobs:
       - name: Start Scan
         run: |
           # export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }}
-          TARGET_ID=$(probely targets get -o JSON | jq -r '.[0].ID')
+          TARGET_ID=$(probely targets get -o JSON | jq -r '.[0].id')
           probely targets start-scan ${TARGET_ID}
