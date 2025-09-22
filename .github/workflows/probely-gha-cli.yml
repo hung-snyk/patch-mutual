@@ -1,7 +1,6 @@
 name: Snyk API & Web CICD Scan
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 export PROBELY_API_KEY=${{ secrets.PROBELY_API_KEY }}
 
