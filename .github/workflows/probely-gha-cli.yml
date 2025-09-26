@@ -22,7 +22,7 @@ jobs:
       - name: Start Scan
         run: |
           # Start a scan with Target ID variable and save scan ID
-          SCAN_ID=$(probely targets start-scan $TARGET_ID -o JSON -o IDS_ONLY)
+          SCAN_ID=$(probely targets start-scan $TARGET_ID -o IDS_ONLY)
           echo "SCAN_ID=$SCAN_ID" >> $GITHUB_ENV
       - name: Test
         run: |
