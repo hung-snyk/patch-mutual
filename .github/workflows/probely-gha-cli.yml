@@ -48,13 +48,13 @@ jobs:
       # Step 4: Optional logic - abort the pipeline if there are any HIGH risk vulnerabilities.
       - name: Check for High risk vulnerabilities
         run: |
-          # Wait until scan ends
-          HIGH_VULNS=$(probely scans get $SCAN_ID -o JSON | jq -r '.[0].highs')
-          echo "HIGH risk vulnerabilities ${HIGH_VULNS}"
+          HIGH_VULNS=$(probely scans get "$SCAN_ID" -o JSON | jq -r '.highs')
+          echo "HIGH risk vulnerabilities: $HIGH_VULNS"
+      
           if [[ "$HIGH_VULNS" -gt 0 ]]; then
-            echo "Scan has High risk vulnerabilities... aborting"
+            echo "Scan has high risk vulnerabilities. Failing pipeline."
             exit 1
           else
-            echo "Scan doesn't have High risk vulnerabilities"
+            echo "No high risk vulnerabilities found."
           fi
           
