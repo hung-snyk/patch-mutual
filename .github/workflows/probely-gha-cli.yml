@@ -21,7 +21,6 @@ jobs:
       # Step 2: Start scan with scan ID
       - name: Start Scan
         run: |
-          # TARGET_ID=$(probely targets get -o JSON | jq -r '.[0].id')
           TARGET_ID='3DBc7U6cPxAH'
           # Start a scan with Target ID variable and save scan ID
           SCAN_ID=$(probely targets start-scan ${TARGET_ID} -o JSON | jq -r '.[0].id')
