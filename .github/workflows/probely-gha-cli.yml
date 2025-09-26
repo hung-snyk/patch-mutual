@@ -21,8 +21,10 @@ jobs:
       # Step 2: Start scan with scan ID
       - name: Start Scan
         run: |
-          # Start a scan with Target ID variable and save scan ID
-          SCAN_ID=$(probely targets start-scan $TARGET_ID -o IDS_ONLY)
+          # Start a scan with Target ID variable and save Scan ID
+          probely targets start-scan $TARGET_ID
+          # Get Scan ID
+          SCAN_ID=$(probely scans get --f-target $TARGET_ID | jq -r '.[0].id')
           echo "SCAN_ID=$SCAN_ID" >> $GITHUB_ENV
 
       # Step 3: Wait for scan to end
