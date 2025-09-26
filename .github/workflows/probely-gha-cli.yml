@@ -26,7 +26,7 @@ jobs:
           echo "SCAN_ID=$SCAN_ID" >> $GITHUB_ENV
       - name: Test
         run: |
-          probely scans get $SCAN_ID
+          probely scans get $SCAN_ID -o JSON
 
       # Step 3: Wait for scan to end
       - name: Wait for scan to end
