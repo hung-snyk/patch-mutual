@@ -32,8 +32,8 @@ jobs:
           # Wait until scan ends
           while true; do
             echo "-----------------------------------"
-            SCAN_STATUS=$(probely scans get ${SCAN_ID} --api-key ${{ secrets.PROBELY_API_KEY }} -o JSON | jq -r '.[0].status')
-            echo $(SCAN_STATUS)
+            SCAN_STATUS=$(probely scans get ${SCAN_ID} -o JSON | jq -r '.[0].status')
+            echo ${SCAN_STATUS}
             if [ $SCAN_STATUS == "started" ] || [ $SCAN_STATUS == "queued" ]; then
               echo "Scan is running or queued!";
             else
