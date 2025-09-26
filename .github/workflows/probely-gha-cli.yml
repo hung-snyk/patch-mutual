@@ -30,7 +30,6 @@ jobs:
       # Step 3: Wait for scan to end
       - name: Wait for scan to end
         run: |
-          probely scans get $SCAN_ID
           # Wait until scan ends
           while true; do
             echo "-----------------------------------"
