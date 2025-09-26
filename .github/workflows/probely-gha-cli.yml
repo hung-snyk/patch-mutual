@@ -32,7 +32,7 @@ jobs:
           # Wait until scan ends
           while true; do
             echo "-----------------------------------"
-            SCAN_STATUS=$(probely scans get $SCAN_ID -o JSON | jq -r '.status')
+            SCAN_STATUS=$(probely scans get $SCAN_ID -o JSON | jq -r ".[] | select(.id==\"$SCAN_ID\") | .status")
             if [ $SCAN_STATUS == "started" ] || [ $SCAN_STATUS == "queued" ]; then
               echo "Scan is running or queued!";
             else
