@@ -23,7 +23,7 @@ jobs:
         run: |
           TARGET_ID='3DBc7U6cPxAH'
           # Start a scan with Target ID variable and save scan ID
-          SCAN_ID=$(probely targets start-scan $TARGET_ID -o JSON | jq -r '.[0].id')
+          SCAN_ID=$(probely targets start-scan $TARGET_ID -o JSON -o IDS_ONLY)
           echo "SCAN_ID=$SCAN_ID" >> $GITHUB_ENV
 
       # Step 3: Wait for scan to end
