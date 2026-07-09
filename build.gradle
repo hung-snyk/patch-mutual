@@ -1,12 +1,15 @@
+plugins {
+    id 'war'
+}
 
-apply plugin: 'war'
-
-webAppDirName = 'WebContent'
-sourceCompatibility = "1.7"; 
-targetCompatibility = "1.7";
+// Fixed Java toolchain configuration syntax for modern Gradle
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 sourceSets {
@@ -14,30 +17,38 @@ sourceSets {
         java {
             srcDirs = ['src']
         }
-		resources {
+        resources {
             srcDirs = ['src']
         }
     }
 }
 
 dependencies {
-	implementation \
-		fileTree(dir: "${webAppDirName}/WEB-INF/lib", include: '*.jar'),
-		'commons-codec:commons-codec:1.6',
-		'commons-lang:commons-lang:2.5',
-		'com.hynnet:commons-lang3:3.3.2',
-		'org.apache.derby:derby:10.8.2.2',
-		'org.glassfish.jersey.core:jersey-server:2.27',
-		'org.glassfish.jersey.containers:jersey-container-servlet:2.27',
-		'org.glassfish.jersey.inject:jersey-hk2:2.27',
-		'log4j:log4j:1.2.16',
-		'org.apache.wink:wink-json4j:1.4'
-	providedCompile \
-		'javax:javaee-api:7.0'
+    // Fixed fileTree syntax to use the new webAppDirectory property
+    implementation fileTree(dir: "${war.webAppDirectory.get().asFile}/WEB-INF/lib", include: '*.jar')
+    
+    implementation 'commons-codec:commons-codec:1.6'
+    implementation 'commons-lang:commons-lang:2.5'
+    implementation 'com.hynnet:commons-lang3:3.3.2'
+    implementation 'org.apache.derby:derby:10.17.1.0'
+    implementation 'org.glassfish.jersey.core:jersey-server:2.43'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.43'
+    implementation 'org.glassfish.jersey.inject:jersey-hk2:2.43'
+    implementation 'log4j:log4j:1.2.16'
+    implementation 'org.apache.wink:wink-json4j:1.4'
+    
+    implementation 'org.apache.pdfbox:pdfbox:2.0.31'
+    
+    providedCompile 'javax:javaee-api:7.0'
 }
 
 war {
-	archiveName 'altoromutual.war'
-	exclude 'WEB-INF/classes/**/*.class'
-	exclude 'WEB-INF/lib/**/*.jar'
+    // Fixed: Set the custom WebContent folder using modern API
+    webAppDirectory = file('WebContent')
+    
+    // Fixed: archiveName was replaced by archiveFileName
+    archiveFileName = 'altoromutual.war'
+    
+    exclude 'WEB-INF/classes/**/*.class'
+    exclude 'WEB-INF/lib/**/*.jar'
 }
