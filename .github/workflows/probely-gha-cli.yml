@@ -1,0 +1,58 @@
+name: Snyk API & Web CICD Scan
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PROBELY_API_KEY: ${{ secrets.PROBELY_API_KEY }}
+      TARGET_ID: ${{ vars.TARGET_ID }}
+
+    steps:
+      # Step 1: Install Probely CLI
+      - name: Install Probely CLI
+        run: |
+          # Install Probely CLI
+          pip install probely
+          # Get a list of targets
+          probely targets get
+
+      # Step 2: Start scan with scan ID
+      - name: Start Scan
+        run: |
+          # Start a scan with Target ID variable and save Scan ID
+          probely targets start-scan $TARGET_ID
+          # Get Scan ID
+          SCAN_ID=$(probely scans get --f-target $TARGET_ID -o JSON | jq -r '.[0].id')
+          echo "SCAN_ID=$SCAN_ID" >> $GITHUB_ENV
+
+      # Step 3: Wait for scan to end
+      - name: Wait for scan to end
+        run: |
+          # Wait until scan ends
+          while true; do
+            echo "-----------------------------------"
+            SCAN_STATUS=$(probely scans get $SCAN_ID -o JSON | jq -r '.status')
+            if [ "$SCAN_STATUS" = "started" ] || [ "$SCAN_STATUS" = "queued" ]; then
+              echo "Scan is running or queued!";
+            else
+              echo "Scan is not running... finishing"
+              break;
+            fi
+            sleep 30;
+          done
+
+      # Step 4: Optional logic - abort the pipeline if there are any HIGH risk vulnerabilities.
+      - name: Check for High risk vulnerabilities
+        run: |
+          HIGH_VULNS=$(probely scans get "$SCAN_ID" -o JSON | jq -r '.highs')
+          echo "HIGH risk vulnerabilities: $HIGH_VULNS"
+      
+          if [[ "$HIGH_VULNS" -gt 0 ]]; then
+            echo "Scan has high risk vulnerabilities. Failing pipeline."
+            exit 1
+          else
+            echo "No high risk vulnerabilities found."
+          fi
+          
